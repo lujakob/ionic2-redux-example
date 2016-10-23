@@ -10,16 +10,12 @@
 
 <ion-content padding>
 
-  <h3>Welcome to your first Ionic app!</h3>
+	<button (click)="increment()" class="btn btn-primary">
+		increment
+	</button>
+	<button (click)="decrement()" class="btn btn-primary">
+		decrement
+	</button>
 
-  <p>
-    This starter project is our way of helping you get a functional app running in record time.
-  </p>
-  <p>
-    Follow along on the tutorial section of the Ionic docs!
-  </p>
-  <p>
-    <button ion-button color="primary" menuToggle>Toggle Menu</button>
-  </p>
-
+	<p>Counter: {{ counter }}</p>
 </ion-content>

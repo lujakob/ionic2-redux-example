@@ -5,6 +5,27 @@ import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { ListPage } from '../pages/list/list';
 
+import { AppStore, createAppStoreFactoryWithOptions } from 'angular2-redux';
+import { CounterActions } from '../actions/counter.actions';
+import reducers from '../reducers/app.reducer';
+
+
+// need this for npm run build
+// export function appStoreFactory () {
+//     return createAppStoreFactoryWithOptions({
+//         reducers,
+//         additionalMiddlewares: [],
+//         debug: true
+//     });
+// }
+
+// need this for ionic serve
+export const appStoreFactory = createAppStoreFactoryWithOptions({
+    reducers,
+    additionalMiddlewares: [],
+    debug: true
+})();
+
 @NgModule({
   declarations: [
     MyApp,
@@ -22,6 +43,12 @@ import { ListPage } from '../pages/list/list';
     ItemDetailsPage,
     ListPage
   ],
-  providers: []
+  providers: [
+      {
+          provide: AppStore,
+          useValue: appStoreFactory
+      },
+      CounterActions
+  ]
 })
 export class AppModule {}
