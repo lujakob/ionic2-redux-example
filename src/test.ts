@@ -8,7 +8,11 @@ import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
 import { TestBed } from '@angular/core/testing';
-import { App, IonicModule }  from 'ionic-angular';
+import { IonicModule }  from 'ionic-angular';
+
+import { AppStore, createAppStoreFactoryWithOptions } from 'angular2-redux';
+import { CounterActions } from './actions/counter.actions';
+import reducers from './reducers/app.reducer';
 
 // Unfortunately there's no typing for the `__karma__` variable. Just declare it as any.
 declare var __karma__: any;
@@ -16,6 +20,26 @@ declare var require: any;
 
 // Prevent Karma from running prematurely.
 __karma__.loaded = function (): any { /* no op */};
+
+
+// need this for npm run build
+// export function appStoreFactory () {
+//     return createAppStoreFactoryWithOptions({
+//         reducers,
+//         additionalMiddlewares: [],
+//         debug: true
+//     });
+// }
+
+// need this for ionic serve
+
+
+// calling this function causes the karma test runner to throw errro
+export const appStoreFactory = createAppStoreFactoryWithOptions({
+    reducers,
+    additionalMiddlewares: [],
+    debug: true
+});
 
 Promise.all([
   System.import('@angular/core/testing'),
@@ -43,6 +67,10 @@ export class TestUtils {
         ...components,
       ],
       providers: [
+          {
+              provide: AppStore,
+              useValue: appStoreFactory
+          }
       ],
       imports: [
         IonicModule,
