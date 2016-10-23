@@ -32,9 +32,8 @@ __karma__.loaded = function (): any { /* no op */};
 // }
 
 // need this for ionic serve
-
-
 // calling this function causes the karma test runner to throw errro
+
 export const appStoreFactory = createAppStoreFactoryWithOptions({
     reducers,
     additionalMiddlewares: [],
