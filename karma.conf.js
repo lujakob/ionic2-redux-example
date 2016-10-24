@@ -1,41 +1,35 @@
-// Karma configuration file, see link for more information
-// https://karma-runner.github.io/0.13/config/configuration-file.html
-
 module.exports = function (config) {
-  config.set({
-    basePath: '',
-    frameworks: ['jasmine', 'angular-cli'],
-    plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-remap-istanbul'),
-      require('karma-mocha-reporter'),
-      require('angular-cli/plugins/karma')
-    ],
-    files: [
-        { pattern: './src/test.ts', watched: false }
-    ],
-    preprocessors: {
-      './src/test.ts': ['angular-cli']
-    },
-    remapIstanbulReporter: {
-      reports: {
-        html: 'coverage',
-        lcovonly: './coverage/coverage.lcov'
-      }
-    },
-    angularCli: {
-      config: './angular-cli.json',
-      environment: 'dev'
-    },
-    reporters: [
-      'mocha', 'karma-remap-istanbul'
-    ],
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: true,
-    browsers: ['Chrome'],
-    singleRun: false
-  });
+    config.set({
+        frameworks: ['jasmine', 'jspm'],
+        plugins: [
+            'karma-jspm',
+            'karma-jasmine',
+            'karma-mocha-reporter',
+            // 'karma-phantomjs-launcher',
+            'karma-chrome-launcher'
+        ],
+        jspm: {
+            serveFiles: ['src/**/*.+(ts|js|html|css)', 'src/**/*.spec.ts']
+        },
+        files: [
+            // {pattern: 'node_modules/zone.js/dist/', included: true, watched: false},
+            // {pattern: 'node_modules/angular2/bundles/angular2-polyfills.js', included: true, watched: false},
+            // {pattern: 'node_modules/angular2/bundles/angular2-polyfills.js', included: true, watched: false},
+
+            // IE required polyfills, in this exact order
+            'node_modules/es6-shim/es6-shim.min.js',
+            // 'node_modules/systemjs/dist/system-polyfills.js',
+            'node_modules/zone.js/dist/zone.js',
+            'node_modules/reflect-metadata/Reflect.js',
+            // 'node_modules/zone.js/dist/async-test.js',
+            // 'node_modules/zone.js/dist/fake-async-test.js',
+            'node_modules/systemjs/dist/system.src.js',
+
+            // {pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', included: true, watched: false}, // PhantomJS
+            // {pattern: 'node_modules/es6-shim/es6-shim.js', included: true, watched: false}, // PhantomJS & PhantomJS2
+            {pattern: 'test/karma-test-shim.js', included: true, watched: false}
+        ],
+        reporters: ['mocha'],
+        browsers: ['Chrome']
+    })
 };
