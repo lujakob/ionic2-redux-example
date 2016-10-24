@@ -43,6 +43,7 @@ export const appStoreFactory = createAppStoreFactoryWithOptions({
 Promise.all([
   System.import('@angular/core/testing'),
   System.import('@angular/platform-browser-dynamic/testing'),
+  //System.import('redux'),
 ])
   // First, initialize the Angular testing environment.
   .then(([testing, testingBrowser]) => {
